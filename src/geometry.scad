@@ -4,7 +4,7 @@ default_plate_thickness =
 tolerance = 0.1;
 
 module pcb_shape() {
-  import(file="../redox/pcb.dxf", layer="PCB");
+  import(file="../redox/pcb.dxf");
 }
 
 pcb_hole_positions =
@@ -18,13 +18,13 @@ pcb_hole_dia =
   4.0;
 
 module shell_shape() {
-  import(file="../redox/pcb.dxf", layer="Shell");
+  import(file="../redox/shell.dxf", layer="Shell");
 }
 
 case_hole_positions =
-  [ [  -5.7858,   -1.3050 ]
+  [ [  -1.1034,    2.9458 ]
   , [ 143.0628,   -1.3050 ]
-  , [  -5.7858,  -98.4215 ]
+  , [  -1.0002, -102.5929 ]
   , [ 158.2978, -114.6142 ]
   ];
 
@@ -130,13 +130,12 @@ m3_insert_dia = 4;
 m3_insert_depth = 4.5;
 
 dim_shell_rot = -10;
-dim_shell_offset_x = 11.5625;
-dim_shell_offset_y = 8;
-// Offset from the shell to the PCB on the right side.
-dim_shell_offset_y2 = 7.94;
-dim_shell_x1 = 160.33;
-dim_shell_max_x = 184.1642;
-dim_shell_max_y = 138.40;
+dim_shell_offset_x = 4; // How far the shell goes to the left of the PCB.
+dim_shell_offset_y = 7.2; // How far the shell goes above the PCB.
+dim_shell_offset_y2 = 7.94; // Offset from the shell to the PCB on the right side.
+dim_shell_x1 = 152.77; // Total width of the back of the shell.
+dim_shell_max_x = 176.60; // The widest possible value for X.
+dim_shell_max_y = 137.67; // The tallest possible value for Y.
 dim_mount_len = 72;
 dim_mount_offset_y = 15;
 dim_mount_depth = 12;

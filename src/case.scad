@@ -1,3 +1,6 @@
+$fa = 1.0;
+$fs = 0.5;
+
 include <geometry.scad>
 use <caps.scad>
 use <mounts.scad>
@@ -87,6 +90,16 @@ module left_shell(
       }
     }
 
+    // Cut out the top section for the key caps to recess into:
+    each_switch(switch_positions, true)
+      translate(
+        [ 0
+        , 0
+        , height - cap_cutout_thickness + cap_base_height
+        ])
+        scale([1.055, 1.055, 1])
+        children(1);
+
     // Cut out the switch tops:
     //
     // FIXME: Hard-coded size for the switch tops.
@@ -94,21 +107,19 @@ module left_shell(
       translate([0, 0, height - cap_cutout_thickness])
         cube([14.5, 16.5, cap_base_height*2], center=true);
 
-    // Cut out the top section for the key caps to recess into:
-    each_switch(switch_positions, true)
-      translate([0, 0, height - cap_cutout_thickness + cap_base_height])
-        scale([1.055, 1.055, 1])
-        children(1);
-
     // Cut out the switch plate and PCB:
-    translate([0, 0, height - cap_cutout_thickness - (plate_thickness + pcb_thickness)])
+    translate(
+      [ 0
+      , 0
+      , height - cap_cutout_thickness - (plate_thickness + pcb_thickness)
+      ])
       linear_extrude(height=plate_thickness + pcb_thickness, convexity=10, slices=100)
       offset(delta=tolerance)
       pcb_shape();
 
     // Cut out the section where the bottom attaches:
     linear_extrude(height=shell_bottom_height, convexity = 10,  slices = 100)
-      offset(delta=0.1) // Some additional space for the piece to fit snug.
+      offset(delta=tolerance) // Some additional space for the piece to fit snug.
       shell_shape();
 
     // Cut out the mounting holes for the M3 inserts:
@@ -308,13 +319,16 @@ module both_sides_together(
 }
 
 // For testing:
-/* left_shell() { */
-/*   sa_1u(); */
+/* left_shell_for_split() { */
+/*     kailh_speed_switch(); */
+/*     sa_1u(); */
 /* } */
 
 /* both_sides_together() */
 /*   sa_1u(); */
 
+mirror([0, 1, 0])
+mirror([0, 0, 1])
 difference() {
   left_shell_for_split() {
     kailh_speed_switch();
