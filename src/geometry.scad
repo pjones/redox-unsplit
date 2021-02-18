@@ -22,9 +22,9 @@ module shell_shape() {
 }
 
 case_hole_positions =
-  [ [  -1.1034,    2.9458 ]
+  [ [   1.1034,    1.9458 ]
   , [ 143.0628,   -1.3050 ]
-  , [  -1.0002, -102.5929 ]
+  , [   1.0002, -101.5929 ]
   , [ 158.2978, -114.6142 ]
   ];
 
@@ -141,12 +141,12 @@ dim_mount_offset_y = 15;
 dim_mount_depth = 12;
 
 
-dim_trrs_x = 129; // From left edge of PCB to center of TRRS jack
-dim_trrs_z = 4; // From top of PCB to center of jack
+dim_trrs_x = 130; // From left edge of PCB to center of TRRS jack
+dim_trrs_z = 5; // From top of PCB to center of jack
 dim_trrs_y = 6.25; // From pcb to shell;
 
 dim_usb_x = 71.25; // From left edge of the PCB to center of the USB port
-dim_usb_z = 6.9;  // From top of PCB to center of USB port.
+dim_usb_z = 3.5;  // From top of PCB to center of USB port.
 /* dim_usb_z = 2.9;  // From top of PCB to center of USB port. */
 dim_usb_y = 3.58; // From PCB to shell.
 dim_usb_overhang = 3; // USB port positive overhang off the PCB on Y axis.

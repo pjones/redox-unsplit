@@ -7,8 +7,11 @@ use <src/mounts.scad>
 use <src/plates.scad>
 use <src/switches.scad>
 
-part = "case";
-side = "left";
+// The part.
+part = "case"; // ["plate", "bottom", "case", "mount"]
+
+// Which side of the part?
+side = "left"; // ["left", "right"]
 
 plate_thickness = 1.6;
 

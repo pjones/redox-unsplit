@@ -102,8 +102,8 @@ module m3_screw_head(height)
 }
 
 module usb_c_plug(h=23) {
-  width = 11.5;
-  dia = 6.25;
+  width = 12;
+  dia = 7;
   gap = width/2 - dia/2;
 
   hull() {
@@ -116,7 +116,7 @@ module usb_c_plug(h=23) {
 }
 
 module trrs_plug(h=15) {
-  cylinder(d=7.5, h=h, center=true);
+  cylinder(d=8.25, h=h, center=true);
 }
 
 usb_c_plug();

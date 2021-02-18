@@ -1,5 +1,6 @@
-$fa = 1.0;
-$fs = 0.5;
+// Which case view to display
+view="L"; // [L:Left_Case, J:Both_Halves, B:Back_Cut_Away]
+
 
 include <geometry.scad>
 use <caps.scad>
@@ -105,7 +106,7 @@ module left_shell(
     // FIXME: Hard-coded size for the switch tops.
     each_switch(switch_positions)
       translate([0, 0, height - cap_cutout_thickness])
-        cube([14.5, 16.5, cap_base_height*2], center=true);
+        cube([15, 17, cap_base_height*2], center=true);
 
     // Cut out the switch plate and PCB:
     translate(
@@ -113,8 +114,11 @@ module left_shell(
       , 0
       , height - cap_cutout_thickness - (plate_thickness + pcb_thickness)
       ])
-      linear_extrude(height=plate_thickness + pcb_thickness, convexity=10, slices=100)
-      offset(delta=tolerance)
+      linear_extrude(
+        height=plate_thickness + pcb_thickness,
+        convexity=10,
+        slices=100)
+      offset(delta=1.0)
       pcb_shape();
 
     // Cut out the section where the bottom attaches:
@@ -318,27 +322,34 @@ module both_sides_together(
     }
 }
 
-// For testing:
-/* left_shell_for_split() { */
-/*     kailh_speed_switch(); */
-/*     sa_1u(); */
-/* } */
 
-/* both_sides_together() */
-/*   sa_1u(); */
+$fa = 1.0;
+$fs = 0.5;
 
-mirror([0, 1, 0])
-mirror([0, 0, 1])
-difference() {
+if (view == "L") {
   left_shell_for_split() {
     kailh_speed_switch();
     sa_1u();
   }
+} else if (view == "J") {
+  both_sides_together() {
+    kailh_speed_switch();
+    sa_1u();
+  }
+} else if (view == "B") {
+  mirror([0, 1, 0])
+  mirror([0, 0, 1])
+  difference() {
+    left_shell_for_split() {
+      kailh_speed_switch();
+      sa_1u();
+    }
 
-  translate([-dim_shell_offset_x*2,
-             -dim_shell_max_y*2 - 10,
-             0])
-    cube([dim_shell_max_x*2,
-          dim_shell_max_y*2,
-          30]);
+    translate([-dim_shell_offset_x*2,
+              -dim_shell_max_y*2 - 10,
+              0])
+      cube([dim_shell_max_x*2,
+            dim_shell_max_y*2,
+            30]);
+  }
 }
