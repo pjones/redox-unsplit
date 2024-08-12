@@ -144,7 +144,6 @@ dim_mount_depth = 12;
 dim_trrs_x = 130; // From left edge of PCB to center of TRRS jack
 dim_trrs_z = 5; // From top of PCB to center of jack
 dim_trrs_y = 6.25; // From pcb to shell;
-
 dim_usb_x = 71.25; // From left edge of the PCB to center of the USB port
 dim_usb_z = 3.5;  // From top of PCB to center of USB port.
 /* dim_usb_z = 2.9;  // From top of PCB to center of USB port. */
@@ -152,3 +151,13 @@ dim_usb_y = 3.58; // From PCB to shell.
 dim_usb_overhang = 3; // USB port positive overhang off the PCB on Y axis.
 
 dim_microcontroller_x = 18.6; // How wide is the Pro Micro/Elite-C?
+
+function trrs_geometry(side) =
+  let ( x = 130
+      , y = side == "right" ? 2.25 : 6.25
+      , z = 5
+      )
+  [ x // From left edge of PCB to center of TRRS jack
+  , y // From PCB to shell.
+  , z // From top of PCB to center of jack
+  ];
